@@ -15,11 +15,9 @@
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<<<<<<< HEAD
+
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     
-=======
->>>>>>> 77caff5170112a97dd06ec865221415c7d322d35
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
