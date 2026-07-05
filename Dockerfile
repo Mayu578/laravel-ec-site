@@ -23,9 +23,6 @@ COPY . .
 # Composer
 RUN composer install --no-dev --optimize-autoloader
 
-# キャッシュクリア
-RUN php artisan optimize:clear
-
 # 権限
 RUN chown -R www-data:www-data storage bootstrap/cache
 
