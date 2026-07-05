@@ -1,4 +1,3 @@
-# PHPの公式イメージを使用
 FROM php:8.2-fpm
 
 # 必要なシステムパッケージとPHP拡張をインストール
@@ -11,27 +10,25 @@ RUN apt-get update && apt-get install -y \
     unzip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd pdo pdo_mysql pdo_pgsql pgsql
-    php artisan config:clear
-    php artisan cache:clear
 
-
-# Composerをインストール
+# Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# 作業ディレクトリを設定
+# 作業ディレクトリ
 WORKDIR /var/www
 
-# プロジェクトファイルをコピー
+# ソースコード
 COPY . .
 
-# 依存関係をインストール
+# Composer
 RUN composer install --no-dev --optimize-autoloader
 
-# 権限を設定
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+# キャッシュクリア
+RUN php artisan optimize:clear
 
-# 公開ポート
+# 権限
+RUN chown -R www-data:www-data storage bootstrap/cache
+
 EXPOSE 8080
 
-# 起動コマンド
-CMD php artisan serve --host=0.0.0.0 --port=8080
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
