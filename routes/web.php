@@ -13,6 +13,20 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\SectionController as AdminSectionController;
 
 
+Route::get('/debug-session', function () {
+    return [
+        'is_secure' => request()->isSecure(),
+        'scheme' => request()->getScheme(),
+        'session_driver' => config('session.driver'),
+        'session_secure_config' => config('session.secure'),
+        'session_domain_config' => config('session.domain'),
+        'session_same_site' => config('session.same_site'),
+        'x_forwarded_proto' => request()->header('X-Forwarded-Proto'),
+        'session_id' => session()->getId(),
+        'app_env' => config('app.env'),
+    ];
+});
+
 // トップページは /dashboard にリダイレクト
 Route::get('/', function () {
     return redirect()->route('dashboard');
