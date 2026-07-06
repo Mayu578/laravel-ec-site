@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Foundation\Application;
@@ -13,11 +12,13 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->trustProxies(at: '*');
-        
+
+        $middleware->append(\App\Http\Middleware\NoCacheHeaders::class);
+
         $middleware->alias([
-        'admin' => \App\Http\Middleware\AdminMiddleware::class,
-        'not_admin' => \App\Http\Middleware\NotAdminMiddleware::class,
-    ]);
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'not_admin' => \App\Http\Middleware\NotAdminMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
