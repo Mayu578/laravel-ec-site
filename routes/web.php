@@ -12,6 +12,18 @@ use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\SectionController as AdminSectionController;
 
+//デバック用
+Route::get('/debug-user/{email}', function ($email) {
+    $user = \App\Models\User::where('email', $email)->first();
+    if (!$user) {
+        return 'ユーザーが見つかりません';
+    }
+    return [
+        'name' => $user->name,
+        'email' => $user->email,
+        'is_admin' => $user->is_admin,
+    ];
+});
 
 
 // トップページは /dashboard にリダイレクト
