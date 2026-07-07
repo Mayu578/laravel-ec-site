@@ -12,15 +12,7 @@ use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\SectionController as AdminSectionController;
 
-Route::get('/make-admin/{email}', function ($email) {
-    $user = \App\Models\User::where('email', $email)->first();
-    if (!$user) {
-        return 'ユーザーが見つかりません';
-    }
-    $user->is_admin = true;
-    $user->save();
-    return $user->email . ' を管理者にしました!';
-});
+
 
 // トップページは /dashboard にリダイレクト
 Route::get('/', function () {
